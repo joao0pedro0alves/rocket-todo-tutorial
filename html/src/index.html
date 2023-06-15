@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <title>Rocket todo</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <img src="./assets/logo.svg" alt="" />
+  </header>
+
+  <main>
+    <!-- Search Form -->
+    <form id="search-form">
+      <input type="text" name="task" id="task" placeholder="Adicione uma nova tarefa" />
+      <button type="submit">
+        Criar
+        <img src="./assets/icons/plus.svg" alt="Plus" />
+      </button>
+    </form>
+
+    <section>
+      <div id="toolbar">
+        <span class="text-primary">
+          Tarefas criadas
+          <div id="todo-counter" class="toolbar-item-count">0</div>
+        </span>
+        <span class="text-secondary">
+          Concluidas
+          <div id="todo-completed-counter" class="toolbar-item-count">0 de 0</div>
+        </span>
+      </div>
+
+      <!-- Empty content -->
+      <div id="empty-content">
+        <img src="./assets/clipboard.png" alt="" />
+        <strong>Você ainda não tem tarefas cadastradas</strong>
+        <span>Crie tarefas e organize seus itens a fazer</span>
+      </div>
+
+      <!-- Table -->
+      <div id="todo-container">
+        <table id="todo-table">
+          <tbody id="todo-table-body">
+            <!-- Content -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="./main.js"></script>
+</body>
+
+</html>
