@@ -1,6 +1,9 @@
+import { useState, useRef, FormEvent } from 'react'
 import { PlusCircle, Trash } from 'phosphor-react'
 
 import logo from '@/assets/logo.svg'
+import { Checkbox } from '@/components/Checkbox'
+import { EmptyList } from '@/components/EmptyList'
 
 import {
   SearchForm,
@@ -12,9 +15,69 @@ import {
   TodoTableContainer,
   TodoTableRow,
 } from './styles'
-import { Checkbox } from '@/components/Checkbox'
+
+interface Todo {
+  id: string
+  task: string
+  createdAt: Date
+  doneAt: null | Date
+}
+
+/**
+ * Conceitos abordados nesse aplicativo.
+ *
+ * 1. Controle de estado, imutabilidade.
+ * 2. Renderização condicional.
+ * 3. Manipulação de eventos.
+ *
+ * Hooks utilizados
+ *
+ * 1. useState
+ * 2. useRef
+ */
 
 export function TodoList() {
+  const [todos, setTodos] = useState<Todo[]>([])
+  const taskRef = useRef<HTMLInputElement>(null)
+
+  const completedTodos = todos.filter((todo) => !!todo.doneAt)
+
+  function handleCreateTodo(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    const task = taskRef.current?.value
+
+    if (task) {
+      const now = Date.now()
+
+      const newTodo: Todo = {
+        id: String(now),
+        createdAt: new Date(now),
+        doneAt: null,
+        task,
+      }
+
+      setTodos((state) => [newTodo, ...state])
+      taskRef.current.value = ''
+    }
+  }
+
+  function handleUpdateTodo(todoId: string) {
+    setTodos((state) => {
+      return state.map((todo) =>
+        todo.id !== todoId
+          ? todo
+          : { ...todo, doneAt: todo.doneAt ? null : new Date() },
+      )
+    })
+  }
+
+  function handleDeleteTodo(todoId: string) {
+    setTodos((state) => {
+      return state.filter((todo) => todo.id !== todoId)
+    })
+  }
+
   return (
     <TodoListContainer>
       {/* Header */}
@@ -24,8 +87,13 @@ export function TodoList() {
 
       <TodoListContent>
         {/* Search Form */}
-        <SearchForm>
-          <input type="text" placeholder="Adicione uma nova tarefa" />
+        <SearchForm onSubmit={handleCreateTodo}>
+          <input
+            type="text"
+            name="task"
+            placeholder="Adicione uma nova tarefa"
+            ref={taskRef}
+          />
           <button type="submit">
             Criar
             <PlusCircle size={18} />
@@ -37,43 +105,53 @@ export function TodoList() {
           <TodoListToolbar>
             <span>
               Tarefas criadas
-              <TodoListToolbarCounter>0</TodoListToolbarCounter>
+              <TodoListToolbarCounter>{todos.length}</TodoListToolbarCounter>
             </span>
             <span>
               Concluidas
-              <TodoListToolbarCounter>0 de 0</TodoListToolbarCounter>
+              <TodoListToolbarCounter>
+                {completedTodos.length} de {todos.length}
+              </TodoListToolbarCounter>
             </span>
           </TodoListToolbar>
 
           {/* Todo Table */}
-          <TodoTableContainer>
-            <table>
-              <tbody>
-                <TodoTableRow completed>
-                  <td>
-                    <Checkbox defaultChecked />
-                  </td>
-                  <td>Desenvolver um todo list em react</td>
-                  <td>
-                    <button title="Excluir tarefa">
-                      <Trash />
-                    </button>
-                  </td>
-                </TodoTableRow>
-                <TodoTableRow completed={false}>
-                  <td>
-                    <Checkbox defaultChecked={false} />
-                  </td>
-                  <td>Fazer um café</td>
-                  <td>
-                    <button title="Excluir tarefa">
-                      <Trash />
-                    </button>
-                  </td>
-                </TodoTableRow>
-              </tbody>
-            </table>
-          </TodoTableContainer>
+          {todos.length ? (
+            <TodoTableContainer>
+              <table>
+                <tbody>
+                  {todos.map((todo) => {
+                    const completed = !!todo.doneAt
+
+                    return (
+                      <TodoTableRow
+                        key={`todo-${todo.id}`}
+                        completed={completed}
+                      >
+                        <td>
+                          <Checkbox
+                            checked={completed}
+                            onClick={() => handleUpdateTodo(todo.id)}
+                          />
+                        </td>
+                        <td>{todo.task}</td>
+                        <td>
+                          <button
+                            onClick={() => handleDeleteTodo(todo.id)}
+                            title="Excluir tarefa"
+                          >
+                            <Trash />
+                          </button>
+                        </td>
+                      </TodoTableRow>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </TodoTableContainer>
+          ) : (
+            <EmptyList />
+          )}
         </section>
       </TodoListContent>
     </TodoListContainer>

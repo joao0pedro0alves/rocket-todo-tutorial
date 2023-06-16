@@ -30,6 +30,7 @@ export const SearchForm = styled.form`
     flex: 1;
     padding: 1rem;
     height: 54px;
+    color: ${(props) => props.theme.colors['gray-100']};
     background-color: ${(props) => props.theme.colors['gray-500']};
     border: 1px solid ${(props) => props.theme.colors['gray-700']};
     border-radius: 8px;
