@@ -12,6 +12,9 @@ $ npm run dev
 
 2. Essa aplicação o storage do navegador para armazenar as tarefas criadas, e atualiza as informações ultilizando o paradigma procedural.
 
+
+* [Layout da aplicação](https://www.figma.com/file/CIRi391nDNjtXGGysgoW1M/ToDo-List-%E2%80%A2-Desafio-React-(Copy)?type=design&t=1cIIVmYYeix7WgeZ-0)
+
 ### Theme
 
 ```json
