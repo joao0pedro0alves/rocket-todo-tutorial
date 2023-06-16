@@ -1,0 +1,21 @@
+// Rename to server.json
+
+{
+  "todos": [
+    {
+      "title": "Tarefa 1",
+      "completed": true,
+      "id": 1
+    },
+    {
+      "title": "Tarefa 1",
+      "completed": false,
+      "id": 2
+    },
+    {
+      "title": "Tarefa 3",
+      "completed": false,
+      "id": 3
+    }
+  ]
+}

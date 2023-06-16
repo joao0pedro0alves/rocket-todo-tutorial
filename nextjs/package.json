@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dev:server": "json-server server.json -w -d 500 -p 3333"
   },
   "dependencies": {
+    "@radix-ui/react-checkbox": "^1.0.4",
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^1.2.0",
+    "json-server": "^0.17.3",
     "prettier-plugin-tailwindcss": "^0.3.0"
   }
 }
