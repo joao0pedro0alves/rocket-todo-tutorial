@@ -20,7 +20,7 @@ async function toogleTaskCompleted(
   newCompleted: boolean,
   refresh: () => void,
 ) {
-  await fetch(`http://localhost:3333/todos/${todo.id}`, {
+  await fetch(`http://127.0.0.1/todos/${todo.id}`, {
     method: 'PUT',
     headers: {
       'Content-type': 'application/json',
@@ -35,7 +35,7 @@ async function toogleTaskCompleted(
 }
 
 async function deleteTodo(todoId: number, refresh: () => void) {
-  await fetch(`http://localhost:3333/todos/${todoId}`, {
+  await fetch(`http://127.0.0.1/todos/${todoId}`, {
     method: 'DELETE',
   })
 

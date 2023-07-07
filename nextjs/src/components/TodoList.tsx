@@ -8,11 +8,17 @@ type GetTodosResponse = {
 }[]
 
 async function getTodos() {
-  const response = await fetch('http://localhost:3333/todos', {
-    cache: 'no-store',
-  })
-  const todos: GetTodosResponse = await response.json()
-  return todos
+  try {
+    const response = await fetch('http://127.0.0.1:3333/todos', {
+      cache: 'no-store',
+    })
+    const todos: GetTodosResponse = await response.json()
+    return todos
+  } catch (error) {
+    console.log(error)
+
+    return []
+  }
 }
 
 export async function TodoList() {

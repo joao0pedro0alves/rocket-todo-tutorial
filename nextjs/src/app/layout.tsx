@@ -7,7 +7,7 @@ import { Header } from '@/components/Header'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Rocket todo',
+  title: 'Rocket todo | Nextjs',
   description: 'A simple app to control your daily tasks',
 }
 

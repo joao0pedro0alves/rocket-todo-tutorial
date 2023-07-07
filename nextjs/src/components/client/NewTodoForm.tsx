@@ -9,7 +9,7 @@ export function NewTodoForm() {
   const titleRef = useRef<HTMLInputElement>(null)
 
   async function createTodo(title: string) {
-    await fetch('http://localhost:3333/todos', {
+    await fetch('http://127.0.0.1/todos', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
